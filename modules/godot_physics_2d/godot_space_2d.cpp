@@ -1090,6 +1090,12 @@ const HashSet<GodotCollisionObject2D *> &GodotSpace2D::get_objects() const {
 }
 
 void GodotSpace2D::body_add_to_state_query_list(SelfList<GodotBody2D> *p_body) {
+	// In rare cases, a body might be added twice before the list can be flushed.
+	// Attempting to add it a second time would print an error.
+	if (p_body->in_list()) {
+		return;
+	}
+
 	state_query_list.add(p_body);
 }
 
