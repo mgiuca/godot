@@ -1118,8 +1118,10 @@ const SelfList<GodotArea2D>::List &GodotSpace2D::get_moved_area_list() const {
 }
 
 void GodotSpace2D::call_queries() {
+	print_line("GodotSpace2D::call_queries");
 	while (state_query_list.first()) {
 		GodotBody2D *b = state_query_list.first()->self();
+		print_line(vformat("  -- popping body 0x%x from state query list.", int64_t(b)));
 		state_query_list.remove(state_query_list.first());
 		b->call_queries();
 	}

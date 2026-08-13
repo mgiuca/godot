@@ -613,6 +613,7 @@ void GodotBody2D::integrate_forces(real_t p_step) {
 }
 
 void GodotBody2D::integrate_velocities(real_t p_step) {
+	print_line("GodotBody2D::integrate_velocities");
 	if (mode == PS2DE::BODY_MODE_STATIC) {
 		return;
 	}
@@ -620,6 +621,10 @@ void GodotBody2D::integrate_velocities(real_t p_step) {
 	ERR_FAIL_NULL(get_space());
 
 	if (fi_callback_data || body_state_callback.is_valid()) {
+		if (direct_state_query_list.in_list()) {
+			WARN_PRINT_ED(vformat("Body 0x%x already in state query list.", int64_t(this)));
+		}
+		print_line(vformat("Adding a body 0x%x to state query list.", int64_t(this)));
 		get_space()->body_add_to_state_query_list(&direct_state_query_list);
 	}
 
