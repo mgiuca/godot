@@ -33,6 +33,7 @@
 #include "core/error/error_macros.h"
 #include "core/templates/sort_list.h"
 #include "core/typedefs.h"
+#include "core/variant/variant.h"
 
 template <typename T>
 class _WARN_UNUSED_ SelfList {
@@ -40,10 +41,17 @@ public:
 	class List {
 		SelfList<T> *_first = nullptr;
 		SelfList<T> *_last = nullptr;
+		String _name;
 
 	public:
 		void add(SelfList<T> *p_elem) {
-			ERR_FAIL_COND(p_elem->_root);
+			if (p_elem->_root) {
+				if (p_elem->_root == this) {
+					ERR_FAIL_MSG(vformat("element is already in list named \"%s\"", _name));
+				} else {
+					ERR_FAIL_MSG(vformat("element is already in another list named \"%s\" (being added to \"%s\")", _name, p_elem->_root->_name));
+				}
+			}
 
 			p_elem->_root = this;
 			p_elem->_next = _first;
@@ -60,7 +68,13 @@ public:
 		}
 
 		void add_last(SelfList<T> *p_elem) {
-			ERR_FAIL_COND(p_elem->_root);
+			if (p_elem->_root) {
+				if (p_elem->_root == this) {
+					ERR_FAIL_MSG(vformat("element is already in list named \"%s\"", _name));
+				} else {
+					ERR_FAIL_MSG(vformat("element is already in another list named \"%s\" (being added to \"%s\")", _name, p_elem->_root->_name));
+				}
+			}
 
 			p_elem->_root = this;
 			p_elem->_next = nullptr;
@@ -131,6 +145,10 @@ public:
 		void operator=(const List &) = delete;
 		List() = default;
 		List(const List &) = delete;
+
+		_FORCE_INLINE_ List(const char *name) {
+			_name = name;
+		}
 
 		_FORCE_INLINE_ ~List() {
 			// A self list must be empty on destruction.
