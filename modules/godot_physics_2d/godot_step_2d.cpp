@@ -128,7 +128,6 @@ void GodotStep2D::_check_suspend(LocalVector<GodotBody2D *> &p_body_island) cons
 }
 
 void GodotStep2D::step(GodotSpace2D *p_space, real_t p_delta) {
-	print_line("GodotStep2D::step");
 	p_space->lock(); // can't access space during this
 
 	p_space->setup(); //update inertias, etc
