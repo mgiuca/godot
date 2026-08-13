@@ -1216,7 +1216,12 @@ GodotPhysicsDirectSpaceState2D *GodotSpace2D::get_direct_state() {
 	return direct_access;
 }
 
-GodotSpace2D::GodotSpace2D() {
+GodotSpace2D::GodotSpace2D() :
+		active_list("active_list"),
+		mass_properties_update_list("mass_properties_update_list"),
+		state_query_list("state_query_list"),
+		monitor_query_list("monitor_query_list"),
+		area_moved_list("area_moved_list") {
 	body_linear_velocity_sleep_threshold = GLOBAL_GET("physics/2d/sleep_threshold_linear");
 	body_angular_velocity_sleep_threshold = GLOBAL_GET("physics/2d/sleep_threshold_angular");
 	body_time_to_sleep = GLOBAL_GET("physics/2d/time_before_sleep");
