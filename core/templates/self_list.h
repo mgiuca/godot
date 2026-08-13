@@ -129,6 +129,8 @@ public:
 
 		// Forbid copying, which has broken behavior.
 		void operator=(const List &) = delete;
+		List() = default;
+		List(const List &) = delete;
 
 		_FORCE_INLINE_ ~List() {
 			// A self list must be empty on destruction.
@@ -161,6 +163,7 @@ public:
 
 	// Forbid copying, which has broken behavior.
 	void operator=(const SelfList<T> &) = delete;
+	SelfList(const SelfList<T> &) = delete;
 
 	_FORCE_INLINE_ SelfList(T *p_self) {
 		_self = p_self;
