@@ -4895,6 +4895,7 @@ bool Main::iteration() {
 
 	GodotProfileZoneGrouped(_profile_zone, "physics");
 	for (int iters = 0; iters < advance.physics_steps; ++iters) {
+		print_line("\n== BEGIN PHYSICS STEP ==");
 		GodotProfileZone("Physics Step");
 		GodotProfileZoneGroupedFirst(_physics_zone, "setup");
 		if (Input::get_singleton()->is_agile_input_event_flushing()) {
@@ -4977,6 +4978,7 @@ bool Main::iteration() {
 		physics_process_max = MAX(OS::get_singleton()->get_ticks_usec() - physics_begin, physics_process_max);
 
 		Engine::get_singleton()->_in_physics = false;
+		print_line("== END PHYSICS STEP ==");
 	}
 
 	if (Input::get_singleton()->is_agile_input_event_flushing()) {

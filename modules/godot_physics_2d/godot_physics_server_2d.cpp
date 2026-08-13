@@ -1290,6 +1290,7 @@ void GodotPhysicsServer2D::step(real_t p_step) {
 	if (!active) {
 		return;
 	}
+	print_line("GodotPhysicsServer2D::step");
 
 	_update_shapes();
 
@@ -1312,6 +1313,7 @@ void GodotPhysicsServer2D::flush_queries() {
 	if (!active) {
 		return;
 	}
+	print_line("GodotPhysicsServer2D::flush_queries");
 
 	flushing_queries = true;
 
